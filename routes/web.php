@@ -14,5 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/home');
 });
+
+Auth::routes();
+
+Route::get('create','TasksController@create');
+Route::get('resolve','TasksController@closeTask');
+Route::get('open','TasksController@openTask');
+Route::get('delete','TasksController@delete');
+
+Route::get('/home', 'HomeController@index')->name('home');
