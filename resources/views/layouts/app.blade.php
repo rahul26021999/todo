@@ -23,25 +23,25 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-    .addBtn{
-        position: fixed;
-        bottom: 75px;
-        height: 50px;
-        width: 50px;
-        right: 75px;
-        text-align: center;
-        color:white;
-        background-color: red;
-        border-radius: 50%;
-    }
-    .toast-container{
-        position: fixed;
-        top:70px;
-        right: 10px;
-    }
-    .deleteBtn{
-        cursor: pointer;
-    }
+        .addBtn{
+            position: fixed;
+            bottom: 75px;
+            height: 50px;
+            width: 50px;
+            right: 75px;
+            text-align: center;
+            color:white;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .toast-container{
+            position: fixed;
+            top:70px;
+            right: 10px;
+        }
+        .deleteBtn{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -49,90 +49,90 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   Todo App
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                 Todo App
+             </a>
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav mr-auto">
 
-                    </ul>
+                </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
+                    @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                    @endif
+                    @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                @endguest
+            </ul>
+        </div>
     </div>
-    <span class="addBtn">+</span>
+</nav>
 
-     <!-- Trigger the modal with a button -->
-  <button type="button" class="btn addBtn" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
+<main class="py-4">
+    @yield('content')
+</main>
+</div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+@if(Auth::check())
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn addBtn" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
           <form class="form" id="createTask" action="/create">
             <div class="modal-body">
-                  @csrf
-                  <div class="form-group">
-                      <input type="text" class="form-control" name="task" id="task" placeholder="Write something here..">
-                  </div>
-            </div>
-            <div class="modal-footer">
+              @csrf
+              <div class="form-group">
+                  <input type="text" class="form-control" name="task" id="task" placeholder="Write something here..">
+              </div>
+          </div>
+          <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Add</button>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </form>
-      </div>
-    </div>
+          </div>
+      </form>
   </div>
-    <div class="toast-container">
-        <div class="toast" data-autohide="true">
-            <div class="toast-body" id="toast-body"></div>
-        </div>
+</div>
+</div>
+<div class="toast-container">
+    <div class="toast" data-autohide="true">
+        <div class="toast-body" id="toast-body"></div>
     </div>
+</div>
 
-  <script>
+<script>
     // this is the id of the form
     $("#createTask").submit(function(e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -209,6 +209,8 @@
     }
 
 </script>
-  
+
+@endif
+
 </body>
 </html>
